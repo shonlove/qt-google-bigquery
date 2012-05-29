@@ -24,7 +24,7 @@ void ManagerBigQuery::getDatasetsList(QString strProjectID)
     QApplication::setOverrideCursor(Qt::WaitCursor);
     m_pNetworkAccessManager->get(request);
 
-    qDebug() << "getPredict, Send URL === " << url;
+    qDebug() << "Send URL === " << url;
 }
 
 void ManagerBigQuery::getTablesListForDataset(QString strProjectID, QString strDataset)
@@ -39,7 +39,7 @@ void ManagerBigQuery::getTablesListForDataset(QString strProjectID, QString strD
     QApplication::setOverrideCursor(Qt::WaitCursor);
     m_pNetworkAccessManager->get(request);
 
-    qDebug() << "getPredict, Send URL === " << url;
+    qDebug() << "Send URL === " << url;
 }
 
 void ManagerBigQuery::getColumnsForTable(QString strProjectID, QString strDataset, QString strTable)
@@ -55,12 +55,13 @@ void ManagerBigQuery::getColumnsForTable(QString strProjectID, QString strDatase
     QApplication::setOverrideCursor(Qt::WaitCursor);
     m_pNetworkAccessManager->get(request);
 
-    qDebug() << "getPredict, Send URL === " << url;
+    qDebug() << "Send URL === " << url;
 }
 
 void ManagerBigQuery::geTableData(QString strProjectID, QString strDataset, QString strTable)
 {
-    QString url = QString("https://www.googleapis.com/bigquery/v2/projects/%1/datasets/%2/tables/%3/data?maxResults=10")
+//    QString url = QString("https://www.googleapis.com/bigquery/v2/projects/%1/datasets/%2/tables/%3/data?maxResults=10")
+    QString url = QString("https://www.googleapis.com/bigquery/v2/projects/%1/datasets/%2/tables/%3/data")
             .arg(strProjectID).arg(strDataset).arg(strTable);
 
     QNetworkRequest request;
@@ -71,7 +72,26 @@ void ManagerBigQuery::geTableData(QString strProjectID, QString strDataset, QStr
     QApplication::setOverrideCursor(Qt::WaitCursor);
     m_pNetworkAccessManager->get(request);
 
-    qDebug() << "getPredict, Send URL === " << url;
+    qDebug() << "Send URL === " << url;
+}
+
+void ManagerBigQuery::getQuery(QString strProjectID, QString strQuery)
+{
+    QString url = QString("https://www.googleapis.com/bigquery/v2/projects/%1/queries")
+            .arg(strProjectID);
+    QString json = QString("{ \"query\" : \"%1\" }").arg(strQuery);
+
+
+    QNetworkRequest request;
+    request.setUrl( QUrl(url) );
+    request.setRawHeader("Content-Type", "application/json");
+    request.setRawHeader("Authorization", (QString("Bearer %1").arg(m_Access_Token)).toLatin1());
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    m_pNetworkAccessManager->post(request, json.toLatin1());
+
+    qDebug() << "Send URL === " << url;
+    qDebug() << "data === " << json.toLatin1();
 }
 
 void ManagerBigQuery::replyFinished(QNetworkReply *reply)
@@ -131,7 +151,16 @@ void ManagerBigQuery::replyFinished(QNetworkReply *reply)
         emit recvTableData(_varList);
         return;
     }
+    if (queryKind == "bigquery#queryResponse")
+    {
+        QVariant var = result.toMap()["schema"];
+        QVariantList _varList = var.toMap()["fields"].toList();
+        qDebug() << _varList;
+        emit recvColumnsList(_varList);
 
-
+        _varList = result.toMap()["rows"].toList();
+        emit recvTableData(_varList);
+        return;
+    }
 
 }

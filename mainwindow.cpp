@@ -137,21 +137,19 @@ void MainWindow::recvTableData(const QVariantList &list)
     ui->lwData->clear();
     QVariant var;
     QString str;
+    QVariantList varList1;
     for (int i=0; i < list.size(); i++)
     {
         var = list.at(i);
 
-        QVariant var2 = var.toMap()["f"];
-        qDebug() << "---------" << var2;
-        QVariantList _varList = var2.toList();
-        qDebug() << "+++++++" << _varList.size();
+        varList1 = var.toMap()["f"].toList();
+//        qDebug() << "---------" << varList1;
         str = "";
-        for (int j=0; j < _varList.size(); j++)
+        for (int j=0; j < varList1.size(); j++)
         {
-            qDebug() << "*********" << _varList.at(j).toString();
-            str = str + _varList.at(j).toString() + ";";
+//            qDebug() << "*********" << varList1.at(j).toMap()["v"].toString();
+            str = str + varList1.at(j).toMap()["v"].toString() + ";";
         }
-
         ui->lwData->insertItem(0, new QListWidgetItem(str));
     }
 }
@@ -200,4 +198,9 @@ void MainWindow::on_pbGetTableData_clicked()
     if (!ui->lwTablesList->currentItem()) return;
     m_managerBigQuery.geTableData(ui->leClientID->text(),
         ui->lwDatasetsList->currentItem()->text(), ui->lwTablesList->currentItem()->text());
+}
+
+void MainWindow::on_pbExecQuery_clicked()
+{
+    m_managerBigQuery.getQuery(ui->leClientID->text(), ui->teExecQuery->toPlainText());
 }

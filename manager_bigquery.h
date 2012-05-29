@@ -21,6 +21,7 @@ public:
     void getTablesListForDataset(QString strProjectID, QString strDataset);
     void getColumnsForTable(QString strProjectID, QString strDataset, QString strTable);
     void geTableData(QString strProjectID, QString strDataset, QString strTable);
+    void getQuery(QString strProjectID, QString strQuery);
 
 signals:
     void replyText(const QString& text);

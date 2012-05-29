@@ -51,6 +51,7 @@ private slots:
     void recvTableData(const QVariantList& list);
 
     void on_pbGetTableData_clicked();
+    void on_pbExecQuery_clicked();
 };
 
 #endif // MAINWINDOW_H
