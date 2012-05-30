@@ -53,6 +53,7 @@ private slots:
     void on_pbGetTableData_clicked();
     void on_pbExecQuery_clicked();
     void on_pbLoadQuery_clicked();
+    void on_pbPrepareQuery_clicked();
 };
 
 #endif // MAINWINDOW_H

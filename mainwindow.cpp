@@ -17,7 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_API_key = settings.value("API_KEY").toString();
     m_ClientID = settings.value("ClientID").toString();
     m_RedirectURI = settings.value("RedirectURI").toString();
-    ui->leClientID->setText(settings.value("ValueClientID").toString());
+
+    QStringList strList =  m_ClientID.split(".");
+    if (strList.size())
+        ui->leClientID->setText(strList.at(0));
     m_managerBigQuery.setAPIKey(m_API_key);
 
     m_pOAuth2 = new OAuth2(this);
@@ -52,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     QSettings settings(m_organizationName, m_appName);
-    settings.setValue("ValueClientID", ui->leClientID->text());
+    //settings.setValue("ValueClientID", ui->leClientID->text());
     delete ui;
 }
 
@@ -209,4 +212,16 @@ void MainWindow::on_pbLoadQuery_clicked()
 {
     if (!ui->lwQuerys->currentItem()) return;
     ui->teExecQuery->setPlainText(ui->lwQuerys->currentItem()->text());
+}
+
+void MainWindow::on_pbPrepareQuery_clicked()
+{
+    if (!ui->lwQuerys->currentItem()) return;
+    if (!ui->lwDatasetsList->currentItem()) return;
+    if (!ui->lwTablesList->currentItem()) return;
+
+    QString str = ui->lwQuerys->currentItem()->text();
+    str.replace(QString("%DataSetName"), ui->lwDatasetsList->currentItem()->text());
+    str.replace(QString("%TableName"), ui->lwTablesList->currentItem()->text());
+    ui->teExecQuery->setPlainText(str);
 }
