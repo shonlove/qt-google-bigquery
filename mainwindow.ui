@@ -43,6 +43,12 @@
          <string>Datasets for client ID</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="margin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
@@ -78,6 +84,12 @@
          <string>Tables for dataset</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="margin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QListWidget" name="lwTablesList"/>
          </item>
@@ -99,8 +111,8 @@
        <widget class="QGroupBox" name="groupBox_3">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>250</y>
+          <x>300</x>
+          <y>10</y>
           <width>141</width>
           <height>225</height>
          </rect>
@@ -109,6 +121,12 @@
          <string>Table or query columns</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="margin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QListWidget" name="lwColumns"/>
          </item>
@@ -117,8 +135,8 @@
        <widget class="QGroupBox" name="groupBox_4">
         <property name="geometry">
          <rect>
-          <x>160</x>
-          <y>250</y>
+          <x>450</x>
+          <y>10</y>
           <width>181</width>
           <height>221</height>
          </rect>
@@ -127,6 +145,12 @@
          <string>Table or query data</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="margin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QListWidget" name="lwData"/>
          </item>
@@ -135,10 +159,10 @@
        <widget class="QGroupBox" name="groupBox_5">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>10</y>
-          <width>276</width>
-          <height>181</height>
+          <x>10</x>
+          <y>240</y>
+          <width>621</width>
+          <height>221</height>
          </rect>
         </property>
         <property name="title">
@@ -162,7 +186,7 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QPushButton" name="pbExecQuery">
            <property name="maximumSize">
             <size>
@@ -172,6 +196,84 @@ p, li { white-space: pre-wrap; }
            </property>
            <property name="text">
             <string>Exec query</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QListWidget" name="lwQuerys">
+           <property name="maximumSize">
+            <size>
+             <width>250</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="isWrapping" stdset="0">
+            <bool>false</bool>
+           </property>
+           <property name="layoutMode">
+            <enum>QListView::SinglePass</enum>
+           </property>
+           <property name="spacing">
+            <number>1</number>
+           </property>
+           <property name="viewMode">
+            <enum>QListView::ListMode</enum>
+           </property>
+           <property name="uniformItemSizes">
+            <bool>false</bool>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+           <property name="selectionRectVisible">
+            <bool>true</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>SELECT MAX(age) AS age, name FROM [test1.table1] GROUP BY (name)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>SELECT season FROM [yourDataSetName.yourTableName] GROUP BY (season)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>SELECT season FROM [yourDataSetName.yourTableName] GROUP BY (season)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>SELECT MAX(temperature) FROM [yourDataSetName.yourTableName]</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>SELECT MIN(temperature) FROM [yourDataSetName.yourTableName] WHERE (season = &quot;Summer&quot;)</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="pbLoadQuery">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Load query</string>
            </property>
           </widget>
          </item>
@@ -204,7 +306,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>649</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

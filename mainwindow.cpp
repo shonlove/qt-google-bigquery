@@ -204,3 +204,9 @@ void MainWindow::on_pbExecQuery_clicked()
 {
     m_managerBigQuery.getQuery(ui->leClientID->text(), ui->teExecQuery->toPlainText());
 }
+
+void MainWindow::on_pbLoadQuery_clicked()
+{
+    if (!ui->lwQuerys->currentItem()) return;
+    ui->teExecQuery->setPlainText(ui->lwQuerys->currentItem()->text());
+}
